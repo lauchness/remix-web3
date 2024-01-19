@@ -1,5 +1,5 @@
 {
-  "name": "sentiment-ui",
+  "name": "remix-wagmi",
   "private": true,
   "sideEffects": false,
   "type": "module",
