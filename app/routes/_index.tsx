@@ -14,5 +14,5 @@ export default function Index() {
   if (status === "pending") return <div>Loading ENS name</div>;
   if (status === "error")
     return <div>Error fetching ENS name: {error.message}</div>;
-  return <div>ENS name: {data}</div>;
+  return <div className="text-3xl">ENS name: {data}</div>;
 }
