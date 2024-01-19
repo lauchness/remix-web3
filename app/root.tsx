@@ -8,12 +8,22 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { WagmiProvider } from "wagmi";
+import { config } from "./config/wagmi";
+import {
+  HydrationBoundary,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+
+import { useDehydratedState } from "use-dehydrated-state";
+import * as React from "react";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
 ];
 
-export default function App() {
+function App() {
   return (
     <html lang="en">
       <head>
@@ -29,5 +39,22 @@ export default function App() {
         <LiveReload />
       </body>
     </html>
+  );
+}
+
+export default function AppWithProviders() {
+  // const data = useLoaderData<LoaderData>();
+  const [queryClient] = React.useState(() => new QueryClient());
+
+  const dehydratedState = useDehydratedState();
+
+  return (
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <HydrationBoundary state={dehydratedState}>
+          <App />
+        </HydrationBoundary>
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 }
