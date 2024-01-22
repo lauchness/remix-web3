@@ -3,7 +3,7 @@ import { useAccount, useEnsName } from "wagmi";
 
 interface AddressProps {}
 
-export const Address: FC<AddressProps> = ({}) => {
+export const Address: FC<AddressProps> = () => {
   const { address } = useAccount();
   const { data, error, status } = useEnsName({ address });
   if (status === "pending") return <div>Loading ENS name</div>;
